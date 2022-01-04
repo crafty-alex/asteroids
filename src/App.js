@@ -44,13 +44,11 @@ const App = () => {
                 <CardContent>
                   <Typography
                     style={{
-                      fontSize: 20,
+                      fontSize: 30,
                       marginBottom: "3%",
                     }}
-                    color="text.secondary"
-                    gutterBottom
                   >
-                    Choose a range of max 7 days
+                    Choose a start date
                   </Typography>
                   <Form
                     sendAsteroids={sendAsteroids}
@@ -69,15 +67,14 @@ const App = () => {
                   }}
                 >
                   <CardContent>
-                    <Typography
-                      style={{ fontSize: 20, marginBottom: "3%" }}
-                      color="text.secondary"
-                      gutterBottom
-                    >
+                    <Typography style={{ fontSize: 40, marginBottom: "3%" }}>
                       Asteroids just passing by
                     </Typography>
                     {isLoading ? (
-                      <CircularProgress />
+                      <div>
+                        <CircularProgress />
+                        <div>Calling NASA to fetch the data ...</div>
+                      </div>
                     ) : (
                       <PaginationTable asteroids={asteroids} />
                     )}

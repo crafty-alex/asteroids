@@ -55,14 +55,8 @@ video {
   justify-content: center;
 }
 
-.asteroid {
-  height: 90%;
-  width: 90%;
-}
-
 .text {
   font-weight: 900;
   color: black;
   font-size: 2em;
-  -webkit-text-stroke: 0.4px white;
 }

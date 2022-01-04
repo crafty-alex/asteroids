@@ -10,6 +10,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 const Form = (props) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [endDisabled, setEndDisabled] = useState(true);
   const [minDate, setMinDate] = useState(new Date(1900, 1, 1));
   const [maxDate, setMaxDate] = useState(new Date(2200, 1, 1));
   const [alert, setAlert] = useState(false);
@@ -52,6 +53,7 @@ const Form = (props) => {
   const handleStartDateChange = (date) => {
     let dateClone = new Date(date);
     setStartDate(date);
+    setEndDisabled(false);
     setMinDate(date);
     dateClone.setDate(dateClone.getDate() + 7);
     setMaxDate(dateClone);
@@ -83,6 +85,7 @@ const Form = (props) => {
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
+                disabled={endDisabled}
                 minDate={minDate}
                 maxDate={maxDate}
                 label="End date"

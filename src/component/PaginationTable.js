@@ -11,9 +11,12 @@ import {
   DialogTitle,
   DialogContentText,
   Grid,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import SentimentSatisfiedAltRoundedIcon from "@mui/icons-material/SentimentSatisfiedAltRounded";
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
+import CancelPresentationTwoToneIcon from "@mui/icons-material/CancelPresentationTwoTone";
 import Asteroid from "../assets/asteroid.gif";
 
 const PaginationTable = (props) => {
@@ -137,11 +140,29 @@ const PaginationTable = (props) => {
             <img className="asteroid" src={Asteroid} alt="Asteroid" />
           </Grid>
 
-          <Grid item sm={6}>
+          <Grid
+            item
+            sm={6}
+            style={{
+              marginTop: "50px",
+              borderRadius: "50px 50px 50px 50px",
+              background: "rgba(154, 168, 241, 1)",
+            }}
+          >
             <DialogTitle>
-              {" "}
-              <div className="text">Hello little earthling,</div>
+              <Grid container spacing={1}>
+                <Grid item sm={10}>
+                  <div className="text">Hello little earthling,</div>
+                </Grid>
+
+                <Grid item sm={2}>
+                  <Button onClick={handleClose}>
+                    <CancelPresentationTwoToneIcon fontSize="large" />
+                  </Button>
+                </Grid>
+              </Grid>
             </DialogTitle>
+
             <DialogContent>
               <DialogContentText>
                 <div className="text">
