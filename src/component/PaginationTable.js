@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogContentText,
   Grid,
-  DialogActions,
   Button,
 } from "@mui/material";
 import SentimentSatisfiedAltRoundedIcon from "@mui/icons-material/SentimentSatisfiedAltRounded";
