@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   CircularProgress,
@@ -11,6 +11,8 @@ import Form from "./component/Form";
 import AppContext from "./context/AppContext";
 import PaginationTable from "./component/PaginationTable";
 import Background from "./assets/background.mp4";
+import CalculatedAsteroids from "./component/CalculatedAsteroids";
+import axios from "axios";
 
 const apiKey = "Ec7YsOvv7of2KXGtfrijNur4hsbaxgKUTohkK01f";
 
@@ -23,13 +25,42 @@ const App = () => {
     setAsteroids(data);
   };
 
+  useEffect(() => {
+    saveAsteroids(asteroids);
+  }, [asteroids]);
+
+  async function saveAsteroids(asteroids) {
+    let asteroidsWrapper = {};
+
+    let asteroidList = [];
+
+    asteroids.forEach((item) => {
+      let asteroid = {};
+      asteroid.name = item.name;
+      asteroid.safe = !item.is_potentially_hazardous_asteroid;
+      asteroid.diameterKm =
+        item.estimated_diameter.kilometers.estimated_diameter_max;
+      asteroid.diameterM =
+        item.estimated_diameter.meters.estimated_diameter_max;
+      asteroid.distanceKm = parseFloat(
+        item.close_approach_data[0].miss_distance.kilometers
+      );
+      asteroid.date = new Date(item.close_approach_data[0].close_approach_date);
+      asteroidList.push(asteroid);
+    });
+
+    asteroidsWrapper.asteroidDTOList = asteroidList;
+
+    await axios.post(`http://localhost:9090/save-asteroids`, asteroidsWrapper);
+  }
+
   return (
     <>
       <video autoPlay loop muted>
         <source src={Background} type="video/mp4" />
       </video>
 
-      <div className="body-content">
+      <div className="body-content" style={{ height: peek ? "190vh" : "50vh" }}>
         <AppContext.Provider value={{ apiKey }}>
           <Grid container spacing={2}>
             <Grid item sm={4} />
@@ -60,23 +91,45 @@ const App = () => {
             </Grid>
 
             {peek ? (
+              <>
+                <Grid style={{ marginTop: "2%" }} item xs={12}>
+                  <Card
+                    style={{
+                      opacity: 0.8,
+                    }}
+                  >
+                    <CardContent>
+                      <Typography style={{ fontSize: 40, marginBottom: "3%" }}>
+                        Asteroids just passing by
+                      </Typography>
+                      {isLoading ? (
+                        <div>
+                          <CircularProgress />
+                          <div>Calling NASA to fetch the data ...</div>
+                        </div>
+                      ) : (
+                        <PaginationTable asteroids={asteroids} />
+                      )}
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </>
+            ) : null}
+
+            {asteroids.length > 0 ? (
               <Grid style={{ marginTop: "2%" }} item xs={12}>
                 <Card
                   style={{
                     opacity: 0.8,
+                    marginBottom: "5%",
                   }}
                 >
                   <CardContent>
                     <Typography style={{ fontSize: 40, marginBottom: "3%" }}>
-                      Asteroids just passing by
+                      So... what are we dealing with ?
                     </Typography>
-                    {isLoading ? (
-                      <div>
-                        <CircularProgress />
-                        <div>Calling NASA to fetch the data ...</div>
-                      </div>
-                    ) : (
-                      <PaginationTable asteroids={asteroids} />
+                    {isLoading ? null : (
+                      <CalculatedAsteroids asteroids={asteroids} />
                     )}
                   </CardContent>
                 </Card>

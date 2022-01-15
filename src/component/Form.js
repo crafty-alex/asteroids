@@ -88,7 +88,7 @@ const Form = (props) => {
                 disabled={endDisabled}
                 minDate={minDate}
                 maxDate={maxDate}
-                openTo={minDate}
+                openTo="year"
                 label="End date"
                 value={endDate}
                 onChange={handleEndDateChange}

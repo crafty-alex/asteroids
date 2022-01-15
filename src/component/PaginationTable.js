@@ -71,11 +71,10 @@ const PaginationTable = (props) => {
                 onClick={() => handleClickOpen(subscriber)}
               >
                 <TableCell className="px-0 capitalize" align="left">
-                  {subscriber?.name.replace(/[()]/g, "")}
+                  {subscriber?.name?.replace(/[()]/g, "")}
                 </TableCell>
                 <TableCell className="px-0 capitalize" align="left">
-                  {subscriber?.is_potentially_hazardous_asteroid?.toString() ===
-                  "True" ? (
+                  {subscriber?.is_potentially_hazardous_asteroid ? (
                     <ReportProblemOutlinedIcon />
                   ) : (
                     <SentimentSatisfiedAltRoundedIcon />

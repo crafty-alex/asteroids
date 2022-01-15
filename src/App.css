@@ -48,7 +48,6 @@ video {
 
 .body-content {
   position: relative;
-  height: 100vh;
   text-align: center;
   display: flex;
   align-items: center;
@@ -59,4 +58,17 @@ video {
   font-weight: 900;
   color: black;
   font-size: 2em;
+}
+
+.title-asteroid {
+  font-size: 2em;
+  color: cadetblue;
+  font-weight: bolder;
+  margin-bottom: 2%;
+}
+
+.body-asteroid {
+  font-size: 1em;
+  margin-bottom: 1%;
+  font-weight: bold;
 }
